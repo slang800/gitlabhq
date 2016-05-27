@@ -44,17 +44,17 @@ class @ShortcutsIssuable extends ShortcutsNavigation
       selected = window.getSelection().toString()
       replyField = $('.js-main-target-form #note_note')
 
-      return if selected.trim() == ""
+      return if selected.trim() == ''
 
       # Put a '>' character before each non-empty line in the selection
-      quote = _.map selected.split("\n"), (val) ->
+      quote = _.map selected.split('\n'), (val) ->
         "> #{val}\n" if val.trim() != ''
 
       # If replyField already has some content, add a newline before our quote
-      separator = replyField.val().trim() != "" and "\n" or ''
+      separator = replyField.val().trim() != '' and '\n' or ''
 
       replyField.val (_, current) ->
-        current + separator + quote.join('') + "\n"
+        current + separator + quote.join('') + '\n'
 
       # Trigger autosave for the added text
       replyField.trigger('input')

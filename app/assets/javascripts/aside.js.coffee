@@ -1,7 +1,7 @@
 class @Aside
   constructor: ->
-    $(document).off "click", "a.show-aside"
-    $(document).on "click", 'a.show-aside', (e) ->
+    $(document).off 'click', 'a.show-aside'
+    $(document).on 'click', 'a.show-aside', (e) ->
       e.preventDefault()
       btn = $(e.currentTarget)
       icon = btn.find('i')

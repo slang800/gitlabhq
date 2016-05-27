@@ -1,7 +1,7 @@
 class @UsersSelect
   constructor: (currentUser) ->
-    @usersPath = "/autocomplete/users.json"
-    @userPath = "/autocomplete/users/:id.json"
+    @usersPath = '/autocomplete/users.json'
+    @userPath = '/autocomplete/users/:id.json'
     if currentUser?
       @currentUser = JSON.parse(currentUser)
 
@@ -127,7 +127,7 @@ class @UsersSelect
                 users.unshift(anyUser)
 
             if showDivider
-              users.splice(showDivider, 0, "divider")
+              users.splice(showDivider, 0, 'divider')
 
             # Send the data back
             callback users
@@ -170,10 +170,10 @@ class @UsersSelect
             assignTo(selected)
 
         renderRow: (user) ->
-          username = if user.username then "@#{user.username}" else ""
+          username = if user.username then "@#{user.username}" else ''
           avatar = if user.avatar_url then user.avatar_url else false
-          selected = if user.id is selectedId then "is-active" else ""
-          img = ""
+          selected = if user.id is selectedId then 'is-active' else ''
+          img = ''
 
           if user.beforeDivider?
             "<li>
@@ -217,7 +217,7 @@ class @UsersSelect
       firstUser = $(select).data('first-user')
 
       $(select).select2
-        placeholder: "Search for a user"
+        placeholder: 'Search for a user'
         multiple: $(select).hasClass('multiselect')
         minimumInputLength: 0
         query: (query) =>
@@ -265,16 +265,16 @@ class @UsersSelect
           @formatResult(args...)
         formatSelection: (args...) =>
           @formatSelection(args...)
-        dropdownCssClass: "ajax-users-dropdown"
+        dropdownCssClass: 'ajax-users-dropdown'
         escapeMarkup: (m) -> # we do not want to escape markup since we are displaying html in results
           m
 
   initSelection: (element, callback) ->
     id = $(element).val()
-    if id == "0"
+    if id == '0'
       nullUser = { name: 'Unassigned' }
       callback(nullUser)
-    else if id != ""
+    else if id != ''
       @user(id, callback)
 
   formatResult: (user) ->
@@ -286,7 +286,7 @@ class @UsersSelect
     "<div class='user-result #{'no-username' unless user.username}'>
        <div class='user-image'><img class='avatar s24' src='#{avatar}'></div>
        <div class='user-name'>#{user.name}</div>
-       <div class='user-username'>#{user.username || ""}</div>
+       <div class='user-username'>#{user.username || ''}</div>
      </div>"
 
   formatSelection: (user) ->
@@ -298,7 +298,7 @@ class @UsersSelect
 
     $.ajax(
       url: url
-      dataType: "json"
+      dataType: 'json'
     ).done (user) ->
       callback(user)
 
@@ -317,7 +317,7 @@ class @UsersSelect
         group_id: @groupId
         current_user: @showCurrentUser
         author_id: @authorId
-      dataType: "json"
+      dataType: 'json'
     ).done (users) ->
       callback(users)
 

@@ -2,7 +2,7 @@ class @Breakpoints
   instance = null;
 
   class BreakpointInstance
-    BREAKPOINTS = ["xs", "sm", "md", "lg"]
+    BREAKPOINTS = ['xs', 'sm', 'md', 'lg']
 
     constructor: ->
       @setup()
@@ -10,17 +10,17 @@ class @Breakpoints
     setup: ->
       allDeviceSelector = BREAKPOINTS.map (breakpoint) ->
         ".device-#{breakpoint}"
-      return if $(allDeviceSelector.join(",")).length
+      return if $(allDeviceSelector.join(',')).length
 
       # Create all the elements
       els = $.map BREAKPOINTS, (breakpoint) ->
         "<div class='device-#{breakpoint} visible-#{breakpoint}'></div>"
-      $("body").append els.join('')
+      $('body').append els.join('')
 
     visibleDevice: ->
       allDeviceSelector = BREAKPOINTS.map (breakpoint) ->
         ".device-#{breakpoint}"
-      $(allDeviceSelector.join(",")).filter(":visible")
+      $(allDeviceSelector.join(',')).filter(':visible')
 
     getBreakpointSize: ->
       $visibleDevice = @visibleDevice
@@ -28,7 +28,7 @@ class @Breakpoints
       if not $visibleDevice().length
         @setup()
       $visibleDevice = @visibleDevice()
-      return $visibleDevice.attr("class").split("visible-")[1]
+      return $visibleDevice.attr('class').split('visible-')[1]
 
   @get: ->
     return instance ?= new BreakpointInstance

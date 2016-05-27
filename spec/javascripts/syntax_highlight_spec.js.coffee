@@ -18,13 +18,13 @@ describe 'Syntax Highlighter', ->
 
   describe 'on a parent element', ->
     beforeEach ->
-      fixture.set """
+      fixture.set '''
         <div class="parent">
           <div class="js-syntax-highlight"></div>
           <div class="foo"></div>
           <div class="js-syntax-highlight"></div>
         </div>
-      """
+      '''
 
     it 'applies highlighting to all applicable children', ->
       stubUserColorScheme('monokai')

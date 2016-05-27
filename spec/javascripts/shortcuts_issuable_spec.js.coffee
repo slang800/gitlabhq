@@ -31,7 +31,7 @@ describe 'ShortcutsIssuable', ->
 
         @shortcut.replyWithSelectedText()
         expect($(@selector).val()).
-          toBe("This text was already here.\n> Selected text.\n\n")
+          toBe('This text was already here.\n> Selected text.\n\n')
 
       it 'triggers `input`', ->
         triggered = false
@@ -54,29 +54,29 @@ describe 'ShortcutsIssuable', ->
         @shortcut.replyWithSelectedText()
 
         expect($(@selector).val()).
-          toBe("> This text has been selected.\n\n")
+          toBe('> This text has been selected.\n\n')
 
     describe 'with a multi-line selection', ->
       it 'quotes the selected lines as a group', ->
         stubSelection(
-          """
+          '''
           Selected line one.
 
           Selected line two.
           Selected line three.
 
-          """
+          '''
         )
 
         @shortcut.replyWithSelectedText()
 
         expect($(@selector).val()).
           toBe(
-            """
+            '''
             > Selected line one.
             > Selected line two.
             > Selected line three.
 
 
-            """
+            '''
           )

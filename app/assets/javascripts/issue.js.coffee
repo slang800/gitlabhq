@@ -55,7 +55,7 @@ class @Issue
           $this.prop('disabled', false)
 
   submitNoteForm: (form) =>
-    noteText = form.find("textarea.js-note-text").val()
+    noteText = form.find('textarea.js-note-text').val()
     if noteText.trim().length > 0
       form.submit()
 

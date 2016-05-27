@@ -32,12 +32,12 @@ class @MergeRequestWidget
       type: 'GET'
       url: $('.merge-request').data('url')
       success: (data) =>
-        if data.state == "merged"
+        if data.state == 'merged'
           urlSuffix = if deleteSourceBranch then '?delete_source=true' else ''
 
           window.location.href = window.location.pathname + urlSuffix
         else if data.merge_error
-          $('.mr-widget-body').html("<h4>" + data.merge_error + "</h4>")
+          $('.mr-widget-body').html('<h4>' + data.merge_error + '</h4>')
         else
           callback = -> merge_request_widget.mergeInProgress(deleteSourceBranch)
           setTimeout(callback, 2000)
@@ -83,7 +83,7 @@ class @MergeRequestWidget
         if showNotification and not @firstCICheck
           status = @ciLabelForStatus(data.status)
 
-          if status is "preparing"
+          if status is 'preparing'
             title = @opts.ci_title.preparing
             status = status.charAt(0).toUpperCase() + status.slice(1);
             message = @opts.ci_message.preparing.replace('{{status}}', status)
@@ -108,15 +108,15 @@ class @MergeRequestWidget
   showCIStatus: (state) ->
     return if not state?
     $('.ci_widget').hide()
-    allowed_states = ["failed", "canceled", "running", "pending", "success", "skipped", "not_found"]
+    allowed_states = ['failed', 'canceled', 'running', 'pending', 'success', 'skipped', 'not_found']
     if state in allowed_states
       $('.ci_widget.ci-' + state).show()
       switch state
-        when "failed", "canceled", "not_found"
+        when 'failed', 'canceled', 'not_found'
           @setMergeButtonClass('btn-danger')
-        when "running"
+        when 'running'
           @setMergeButtonClass('btn-warning')
-        when "success"
+        when 'success'
           @setMergeButtonClass('btn-create')
     else
       $('.ci_widget.ci-error').show()

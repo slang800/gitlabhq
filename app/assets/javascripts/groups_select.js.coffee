@@ -4,7 +4,7 @@ class @GroupsSelect
       skip_ldap = $(select).hasClass('skip_ldap')
 
       $(select).select2
-        placeholder: "Search for a group"
+        placeholder: 'Search for a group'
         multiple: $(select).hasClass('multiselect')
         minimumInputLength: 0
         query: (query) ->
@@ -14,7 +14,7 @@ class @GroupsSelect
 
         initSelection: (element, callback) ->
           id = $(element).val()
-          if id isnt ""
+          if id isnt ''
             Api.group(id, callback)
 
 
@@ -22,7 +22,7 @@ class @GroupsSelect
           @formatResult(args...)
         formatSelection: (args...) =>
           @formatSelection(args...)
-        dropdownCssClass: "ajax-groups-dropdown"
+        dropdownCssClass: 'ajax-groups-dropdown'
         escapeMarkup: (m) -> # we do not want to escape markup since we are displaying html in results
           m
 

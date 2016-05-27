@@ -4,7 +4,7 @@ class @BranchGraph
     @mtime = 0
     @mspace = 0
     @parents = {}
-    @colors = ["#000"]
+    @colors = ['#000']
     @offsetX = 150
     @offsetY = 20
     @unitTime = 30
@@ -15,10 +15,10 @@ class @BranchGraph
   load: ->
     $.ajax
       url: @options.url
-      method: "get"
-      dataType: "json"
+      method: 'get'
+      dataType: 'json'
       success: $.proxy((data) ->
-        $(".loading", @element).hide()
+        $('.loading', @element).hide()
         @prepareData data.days, data.commits
         @buildGraph()
       , this)
@@ -60,18 +60,18 @@ class @BranchGraph
   buildGraph: ->
     r = @r
     cuday = 0
-    cumonth = ""
+    cumonth = ''
 
-    r.rect(0, 0, 40, @barHeight).attr fill: "#222"
-    r.rect(40, 0, 30, @barHeight).attr fill: "#444"
+    r.rect(0, 0, 40, @barHeight).attr fill: '#222'
+    r.rect(40, 0, 30, @barHeight).attr fill: '#444'
 
     for day, mm in @days
       if cuday isnt day[0] || cumonth isnt day[1]
         # Dates
         r.text(55, @offsetY + @unitTime * mm, day[0])
           .attr(
-            font: "12px Monaco, monospace"
-            fill: "#BBB"
+            font: '12px Monaco, monospace'
+            fill: '#BBB'
           )
         cuday = day[0]
 
@@ -79,8 +79,8 @@ class @BranchGraph
         # Months
         r.text(20, @offsetY + @unitTime * mm, day[1])
           .attr(
-            font: "12px Monaco, monospace"
-            fill: "#EEE"
+            font: '12px Monaco, monospace'
+            fill: '#EEE'
           )
         cumonth = day[1]
 
@@ -157,28 +157,28 @@ class @BranchGraph
     r = @r
     shortrefs = commit.refs
     # Truncate if longer than 15 chars
-    shortrefs = shortrefs.substr(0, 15) + "…"  if shortrefs.length > 17
+    shortrefs = shortrefs.substr(0, 15) + '…'  if shortrefs.length > 17
     text = r.text(x + 4, y, shortrefs).attr(
-      "text-anchor": "start"
-      font: "10px Monaco, monospace"
-      fill: "#FFF"
+      'text-anchor': 'start'
+      font: '10px Monaco, monospace'
+      fill: '#FFF'
       title: commit.refs
     )
     textbox = text.getBBox()
     # Create rectangle based on the size of the textbox
     rect = r.rect(x, y - 7, textbox.width + 5, textbox.height + 5, 4).attr(
-      fill: "#000"
-      "fill-opacity": .5
-      stroke: "none"
+      fill: '#000'
+      'fill-opacity': .5
+      stroke: 'none'
     )
-    triangle = r.path(["M", x - 5, y, "L", x - 15, y - 4, "L", x - 15, y + 4, "Z"]).attr(
-      fill: "#000"
-      "fill-opacity": .5
-      stroke: "none"
+    triangle = r.path(['M', x - 5, y, 'L', x - 15, y - 4, 'L', x - 15, y + 4, 'Z']).attr(
+      fill: '#000'
+      'fill-opacity': .5
+      stroke: 'none'
     )
 
     label = r.set(rect, text)
-    label.transform(["t", -rect.getBBox().width - 15, 0])
+    label.transform(['t', -rect.getBBox().width - 15, 0])
 
     # Set text to front
     text.toFront()
@@ -188,11 +188,11 @@ class @BranchGraph
     top = @top
     options = @options
     anchor = r.circle(x, y, 10).attr(
-      fill: "#000"
+      fill: '#000'
       opacity: 0
-      cursor: "pointer"
+      cursor: 'pointer'
     ).click(->
-      window.open options.commit_url.replace("%s", commit.id), "_blank"
+      window.open options.commit_url.replace('%s', commit.id), '_blank'
     ).hover(->
       @tooltip = r.commitTooltip(x + 5, y, commit)
       top.push @tooltip.insertBefore(this)
@@ -205,19 +205,19 @@ class @BranchGraph
     r = @r
     r.circle(x, y, 3).attr(
       fill: @colors[commit.space]
-      stroke: "none"
+      stroke: 'none'
     )
 
     avatar_box_x = @offsetX + @unitSpace * @mspace + 10
     avatar_box_y = y - 10
     r.rect(avatar_box_x, avatar_box_y, 20, 20).attr(
       stroke: @colors[commit.space]
-      "stroke-width": 2
+      'stroke-width': 2
     )
     r.image(commit.author.icon, avatar_box_x, avatar_box_y, 20, 20)
-    r.text(@offsetX + @unitSpace * @mspace + 35, y, commit.message.split("\n")[0]).attr(
-      "text-anchor": "start"
-      font: "14px Monaco, monospace"
+    r.text(@offsetX + @unitSpace * @mspace + 35, y, commit.message.split('\n')[0]).attr(
+      'text-anchor': 'start'
+      font: '14px Monaco, monospace'
     )
 
   drawLines: (x, y, commit) ->
@@ -238,18 +238,18 @@ class @BranchGraph
       # Build line shape
       if parent[1] is commit.space
         offset = [0, 5]
-        arrow = "l-2,5,4,0,-2,-5,0,5"
+        arrow = 'l-2,5,4,0,-2,-5,0,5'
 
       else if parent[1] < commit.space
         offset = [3, 3]
-        arrow = "l5,0,-2,4,-3,-4,4,2"
+        arrow = 'l5,0,-2,4,-3,-4,4,2'
 
       else
         offset = [-3, 3]
-        arrow = "l-5,0,2,4,3,-4,-4,2"
+        arrow = 'l-5,0,2,4,3,-4,-4,2'
 
       # Start point
-      route = ["M", x + offset[0], y + offset[1]]
+      route = ['M', x + offset[0], y + offset[1]]
 
       # Add arrow if not first parent
       if i > 0
@@ -258,28 +258,28 @@ class @BranchGraph
       # Circumvent if overlap
       if commit.space isnt parentCommit.space or commit.space isnt parent[1]
         route.push(
-          "L", parentX2, y + 10,
-          "L", parentX2, parentY - 5,
+          'L', parentX2, y + 10,
+          'L', parentX2, parentY - 5,
         )
 
       # End point
-      route.push("L", parentX1, parentY)
+      route.push('L', parentX1, parentY)
 
       r
         .path(route)
         .attr(
           stroke: color
-          "stroke-width": 2)
+          'stroke-width': 2)
 
   markCommit: (commit) ->
     if commit.id is @options.commit_id
       r = @r
       x = @offsetX + @unitSpace * (@mspace - commit.space)
       y = @offsetY + @unitTime * commit.time
-      r.path(["M", x + 5, y, "L", x + 15, y + 4, "L", x + 15, y - 4, "Z"]).attr(
-        fill: "#000"
-        "fill-opacity": .5
-        stroke: "none"
+      r.path(['M', x + 5, y, 'L', x + 15, y + 4, 'L', x + 15, y - 4, 'Z']).attr(
+        fill: '#000'
+        'fill-opacity': .5
+        stroke: 'none'
       )
       # Displayed in the center
       @element.scrollTop(y - @graphHeight / 2)
@@ -292,21 +292,21 @@ Raphael::commitTooltip = (x, y, commit) ->
   idText = @text(x, y + 35, commit.id)
   messageText = @text(x, y + 50, commit.message)
   textSet = @set(icon, nameText, idText, messageText).attr(
-    "text-anchor": "start"
-    font: "12px Monaco, monospace"
+    'text-anchor': 'start'
+    font: '12px Monaco, monospace'
   )
   nameText.attr(
-    font: "14px Arial"
-    "font-weight": "bold"
+    font: '14px Arial'
+    'font-weight': 'bold'
   )
 
-  idText.attr fill: "#AAA"
+  idText.attr fill: '#AAA'
   @textWrap messageText, boxWidth - 50
   rect = @rect(x - 10, y - 10, boxWidth, 100, 4).attr(
-    fill: "#FFF"
-    stroke: "#000"
-    "stroke-linecap": "round"
-    "stroke-width": 2
+    fill: '#FFF'
+    stroke: '#000'
+    'stroke-linecap': 'round'
+    'stroke-width': 2
   )
   tooltip = @set(rect, textSet)
   rect.attr(
@@ -314,27 +314,27 @@ Raphael::commitTooltip = (x, y, commit) ->
     width: tooltip.getBBox().width + 10
   )
 
-  tooltip.transform ["t", 20, 20]
+  tooltip.transform ['t', 20, 20]
   tooltip
 
 Raphael::textWrap = (t, width) ->
-  content = t.attr("text")
-  abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  content = t.attr('text')
+  abc = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   t.attr text: abc
   letterWidth = t.getBBox().width / abc.length
   t.attr text: content
-  words = content.split(" ")
+  words = content.split(' ')
   x = 0
   s = []
 
   for word in words
     if x + (word.length * letterWidth) > width
-      s.push "\n"
+      s.push '\n'
       x = 0
     x += word.length * letterWidth
-    s.push word + " "
+    s.push word + ' '
 
-  t.attr text: s.join("")
+  t.attr text: s.join('')
   b = t.getBBox()
   h = Math.abs(b.y2) - Math.abs(b.y) + 1
   t.attr y: b.y + h

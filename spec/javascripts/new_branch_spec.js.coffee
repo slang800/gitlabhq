@@ -129,7 +129,7 @@ describe 'Branch', ->
       fillNameWith '@'
       expectToHaveError "can't be '@'"
 
-    it "concatenates all error messages", ->
+    it 'concatenates all error messages', ->
       fillNameWith '/foo bar?~.'
       expectToHaveError "can't start with '/', can't contain spaces, '?', '~', can't end in '.'"
 
@@ -137,24 +137,24 @@ describe 'Branch', ->
       fillNameWith '?foo?bar?zoo?'
       expectToHaveError "can't contain '?'"
 
-    it "removes the error message when is a valid name", ->
+    it 'removes the error message when is a valid name', ->
       fillNameWith 'foo?bar'
       expect($('.js-branch-name-error span').length).toEqual(1)
       fillNameWith 'foobar'
       expect($('.js-branch-name-error span').length).toEqual(0)
 
-    it "can have dashes anywhere", ->
+    it 'can have dashes anywhere', ->
       fillNameWith '-foo-bar-zoo-'
       expect($('.js-branch-name-error span').length).toEqual(0)
 
-    it "can have underscores anywhere", ->
+    it 'can have underscores anywhere', ->
       fillNameWith '_foo_bar_zoo_'
       expect($('.js-branch-name-error span').length).toEqual(0)
 
-    it "can have numbers anywhere", ->
+    it 'can have numbers anywhere', ->
       fillNameWith '1foo2bar3zoo4'
       expect($('.js-branch-name-error span').length).toEqual(0)
 
-    it "can be only letters", ->
+    it 'can be only letters', ->
       fillNameWith 'foo'
       expect($('.js-branch-name-error span').length).toEqual(0)

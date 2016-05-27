@@ -12,17 +12,17 @@
   getOld: ->
     @loading.show()
     $.ajax
-      type: "GET"
-      url: $(".content_list").data('href') || location.href
-      data: "limit=" + @limit + "&offset=" + @offset
+      type: 'GET'
+      url: $('.content_list').data('href') || location.href
+      data: 'limit=' + @limit + '&offset=' + @offset
       complete: =>
         @loading.hide()
       success: (data) ->
         Pager.append(data.count, data.html)
-      dataType: "json"
+      dataType: 'json'
 
   append: (count, html) ->
-    $(".content_list").append html
+    $('.content_list').append html
     if count > 0
       @offset += count
     else

@@ -24,25 +24,25 @@ class @NewBranchForm
     startsWith = {
       pattern: /^(\/|\.)/g,
       prefix: "can't start with",
-      conjunction: "or"
+      conjunction: 'or'
     }
 
     endsWith = {
       pattern: /(\/|\.|\.lock)$/g,
       prefix: "can't end in",
-      conjunction: "or"
+      conjunction: 'or'
     }
 
     invalid = {
       pattern: /(\s|~|\^|:|\?|\*|\[|\\|\.\.|@\{|\/{2,}){1}/g
       prefix: "can't contain",
-      conjunction: ", "
+      conjunction: ', '
     }
 
     single = {
       pattern: /^@+$/g
       prefix: "can't be",
-      conjunction: "or"
+      conjunction: 'or'
     }
 
     @restrictions = [startsWith, invalid, endsWith, single]
@@ -74,5 +74,5 @@ class @NewBranchForm
     errors = @restrictions.reduce validator, []
 
     if errors.length > 0
-      errorMessage = $("<span/>").text(errors.join(', '))
+      errorMessage = $('<span/>').text(errors.join(', '))
       @branchNameError.append(errorMessage)

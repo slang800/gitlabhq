@@ -139,7 +139,7 @@ class @AwardsHandler
       "</button>"
     )
 
-    $(nodes.join("\n"))
+    $(nodes.join('\n'))
       .insertBefore('.js-award-holder')
       .find('.emoji-icon')
       .data('emoji', emoji)
@@ -212,4 +212,4 @@ class @AwardsHandler
         $('.emoji-menu-content').children().show()
 
   searchEmojis: (term)->
-    $(".emoji-menu-content [data-emoji*='#{term}']").closest("li").clone()
+    $(".emoji-menu-content [data-emoji*='#{term}']").closest('li').clone()

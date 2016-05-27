@@ -2,14 +2,14 @@ class @Autosave
   constructor: (field, key) ->
     @field = field
 
-    key = key.join("/") if key.join?
+    key = key.join('/') if key.join?
     @key = "autosave/#{key}"
 
-    @field.data "autosave", this
+    @field.data 'autosave', this
 
     @restore()
 
-    @field.on "input", => @save()
+    @field.on 'input', => @save()
 
   restore: ->
     return unless window.localStorage?
@@ -20,7 +20,7 @@ class @Autosave
       return
 
     @field.val text if text?.length > 0
-    @field.trigger "input"
+    @field.trigger 'input'
 
   save: ->
     return unless window.localStorage?

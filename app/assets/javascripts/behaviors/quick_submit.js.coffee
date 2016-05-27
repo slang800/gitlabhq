@@ -44,7 +44,7 @@ $(document).on 'keyup.quick_submit', '.js-quick-submit input[type=submit], .js-q
   if isMac()
     title = "You can also press &#8984;-Enter"
   else
-    title = "You can also press Ctrl-Enter"
+    title = 'You can also press Ctrl-Enter'
 
   $this = $(@)
   $this.tooltip(

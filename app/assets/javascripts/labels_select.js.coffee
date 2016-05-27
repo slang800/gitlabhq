@@ -42,7 +42,7 @@ class @LabelsSelect
       if newLabelField.length
 
         # Suggested colors in the dropdown to chose from pre-chosen colors
-        $('.suggest-colors-dropdown a').on "click", (e) ->
+        $('.suggest-colors-dropdown a').on 'click', (e) ->
           e.preventDefault()
           e.stopPropagation()
           newColorField
@@ -258,7 +258,7 @@ class @LabelsSelect
             defaultLabel
         fieldName: $dropdown.data('field-name')
         id: (label) ->
-          if $dropdown.hasClass("js-filter-submit") and not label.isAny?
+          if $dropdown.hasClass('js-filter-submit') and not label.isAny?
             _.escape label.title
           else
             label.id

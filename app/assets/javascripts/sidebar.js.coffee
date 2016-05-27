@@ -3,16 +3,16 @@ expanded = 'page-sidebar-expanded'
 
 toggleSidebar = ->
   $('.page-with-sidebar').toggleClass("#{collapsed} #{expanded}")
-  $('header').toggleClass("header-collapsed header-expanded")
-  $('.toggle-nav-collapse i').toggleClass("fa-angle-right fa-angle-left")
-  $.cookie("collapsed_nav", $('.page-with-sidebar').hasClass(collapsed), { path: '/' })
+  $('header').toggleClass('header-collapsed header-expanded')
+  $('.toggle-nav-collapse i').toggleClass('fa-angle-right fa-angle-left')
+  $.cookie('collapsed_nav', $('.page-with-sidebar').hasClass(collapsed), { path: '/' })
 
   setTimeout ( ->
     niceScrollBars = $('.nicescroll').niceScroll();
     niceScrollBars.updateScrollBar();
   ), 300
 
-$(document).on("click", '.toggle-nav-collapse, .side-nav-toggle', (e) ->
+$(document).on('click', '.toggle-nav-collapse, .side-nav-toggle', (e) ->
   e.preventDefault()
 
   toggleSidebar()
@@ -21,6 +21,6 @@ $(document).on("click", '.toggle-nav-collapse, .side-nav-toggle', (e) ->
 $ ->
   size = bp.getBreakpointSize()
 
-  if size is "xs" or size is "sm"
+  if size is 'xs' or size is 'sm'
     if $('.page-with-sidebar').hasClass(expanded)
       toggleSidebar()

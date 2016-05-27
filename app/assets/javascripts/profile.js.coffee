@@ -20,9 +20,9 @@ class @Profile
 
     $('.update-notifications').on 'ajax:success', (e, data) ->
       if data.saved
-        new Flash("Notification settings saved", "notice")
+        new Flash('Notification settings saved', 'notice')
       else
-        new Flash("Failed to save new settings", "alert")
+        new Flash('Failed to save new settings', 'alert')
 
     @bindEvents()
 
@@ -54,7 +54,7 @@ class @Profile
       url: @form.attr('action')
       type: @form.attr('method')
       data: formData
-      dataType: "json"
+      dataType: 'json'
       processData: false
       contentType: false
       success: (response) ->

@@ -8,11 +8,11 @@ class @ProjectNew
 
 
   toggleSettings: ->
-    checked = $("#project_builds_enabled").prop("checked")
+    checked = $('#project_builds_enabled').prop('checked')
     if checked
       $('.builds-feature').show()
     else
       $('.builds-feature').hide()
 
   toggleSettingsOnclick: ->
-    $("#project_builds_enabled").on 'click', @toggleSettings
+    $('#project_builds_enabled').on 'click', @toggleSettings

@@ -1,7 +1,7 @@
 class @Compare
   constructor: (@opts) ->
-    @source_loading = $ ".js-source-loading"
-    @target_loading = $ ".js-target-loading"
+    @source_loading = $ '.js-source-loading'
+    @target_loading = $ '.js-target-loading'
 
     $('.js-compare-dropdown').each (i, dropdown) =>
       $dropdown = $(dropdown)

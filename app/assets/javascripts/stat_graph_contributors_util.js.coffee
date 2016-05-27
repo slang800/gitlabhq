@@ -32,8 +32,8 @@ window.ContributorsStatGraphUtil =
     @store_deletions(entry, total, by_author)
 
   store_commits: (total, by_author) ->
-    @add(total, "commits", 1)
-    @add(by_author, "commits", 1)
+    @add(total, 'commits', 1)
+    @add(by_author, 'commits', 1)
 
   add: (collection, field, value) ->
     collection[field] ?= 0
@@ -41,13 +41,13 @@ window.ContributorsStatGraphUtil =
 
   store_additions: (entry, total, by_author) ->
     entry.additions ?= 0
-    @add(total, "additions", entry.additions)
-    @add(by_author, "additions", entry.additions)
+    @add(total, 'additions', entry.additions)
+    @add(by_author, 'additions', entry.additions)
 
   store_deletions: (entry, total, by_author) ->
     entry.deletions ?= 0
-    @add(total, "deletions", entry.deletions)
-    @add(by_author, "deletions", entry.deletions)
+    @add(total, 'deletions', entry.deletions)
+    @add(by_author, 'deletions', entry.deletions)
 
   get_total_data: (parsed_log, field) ->
     log = parsed_log.total

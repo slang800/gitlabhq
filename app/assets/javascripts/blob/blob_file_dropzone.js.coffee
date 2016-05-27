@@ -11,14 +11,14 @@ class @BlobFileDropzone
       method: method
       clickable: true
       uploadMultiple: false
-      paramName: "file"
+      paramName: 'file'
       maxFilesize: gon.max_file_size or 10
       parallelUploads: 1
       maxFiles: 1
       addRemoveLinks: true
       previewsContainer: '.dropzone-previews'
       headers:
-        "X-CSRF-Token": $("meta[name=\"csrf-token\"]").attr("content")
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
 
       init: ->
         this.on 'addedfile', (file) ->
@@ -42,7 +42,7 @@ class @BlobFileDropzone
 
       # Override behavior of adding error underneath preview
       error: (file, errorMessage) ->
-        stripped = $("<div/>").html(errorMessage).text();
+        stripped = $('<div/>').html(errorMessage).text();
         $('.dropzone-alerts').html('Error uploading file: \"' + stripped + '\"').show()
         @removeFile file
         return
@@ -52,6 +52,6 @@ class @BlobFileDropzone
     submitButton.addEventListener 'click', (e) ->
       e.preventDefault()
       e.stopPropagation()
-      alert "Please select a file" if dropzone[0].dropzone.getQueuedFiles().length == 0
+      alert 'Please select a file' if dropzone[0].dropzone.getQueuedFiles().length == 0
       dropzone[0].dropzone.processQueue()
       return false

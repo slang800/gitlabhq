@@ -4,9 +4,9 @@ class @IssuableContext
     new UsersSelect(currentUser)
     $('select.select2').select2({width: 'resolve', dropdownAutoWidth: true})
 
-    $(".issuable-sidebar .inline-update").on "change", "select", ->
+    $('.issuable-sidebar .inline-update').on 'change', 'select', ->
       $(this).submit()
-    $(".issuable-sidebar .inline-update").on "change", ".js-assignee", ->
+    $('.issuable-sidebar .inline-update').on 'change', '.js-assignee', ->
       $(this).submit()
 
     $(document)
@@ -33,28 +33,28 @@ class @IssuableContext
             $block.find('.dropdown-menu-toggle').trigger 'click'
           , 0
 
-    $(".right-sidebar").niceScroll()
+    $('.right-sidebar').niceScroll()
 
   initParticipants: ->
     _this = @
-    $(document).on "click", ".js-participants-more", @toggleHiddenParticipants
+    $(document).on 'click', '.js-participants-more', @toggleHiddenParticipants
 
-    $(".js-participants-author").each (i) ->
+    $('.js-participants-author').each (i) ->
       if i >= _this.PARTICIPANTS_ROW_COUNT
         $(@)
-          .addClass "js-participants-hidden"
+          .addClass 'js-participants-hidden'
           .hide()
 
   toggleHiddenParticipants: (e) ->
     e.preventDefault()
 
     currentText = $(this).text().trim()
-    lessText = $(this).data("less-text")
-    originalText = $(this).data("original-text")
+    lessText = $(this).data('less-text')
+    originalText = $(this).data('original-text')
 
     if currentText is originalText
       $(this).text(lessText)
     else
       $(this).text(originalText)
 
-    $(".js-participants-hidden").toggle()
+    $('.js-participants-hidden').toggle()

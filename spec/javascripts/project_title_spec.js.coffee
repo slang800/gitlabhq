@@ -32,6 +32,6 @@ describe 'Project Title', ->
       expect($('.header-content').hasClass('open')).toBe(true)
 
     it 'hide dropdown', ->
-      $(".dropdown-menu-close-icon").click()
+      $('.dropdown-menu-close-icon').click()
 
       expect($('.header-content').hasClass('open')).toBe(false)

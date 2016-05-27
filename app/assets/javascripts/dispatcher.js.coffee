@@ -52,7 +52,7 @@ class Dispatcher
         new Diff()
         shortcut_handler = new ShortcutsIssuable(true)
         new ZenMode()
-      when "projects:merge_requests:diffs"
+      when 'projects:merge_requests:diffs'
         new Diff()
         new ZenMode()
       when 'projects:merge_requests:index'

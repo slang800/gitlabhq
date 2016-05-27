@@ -1,7 +1,7 @@
 class @Milestone
   @updateIssue: (li, issue_url, data) ->
     $.ajax
-      type: "PUT"
+      type: 'PUT'
       url: issue_url
       data: data
       success: (data) ->
@@ -15,36 +15,36 @@ class @Milestone
             $(li).find('.assignee-icon').html('')
           $(li).effect 'highlight'
         else
-          new Flash("Issue update failed", 'alert')
-      dataType: "json"
+          new Flash('Issue update failed', 'alert')
+      dataType: 'json'
 
   @sortIssues: (data) ->
-    sort_issues_url = location.href + "/sort_issues"
+    sort_issues_url = location.href + '/sort_issues'
 
     $.ajax
-      type: "PUT"
+      type: 'PUT'
       url: sort_issues_url
       data: data
       success: (data) ->
         if data.saved != true
-          new Flash("Issues update failed", 'alert')
-      dataType: "json"
+          new Flash('Issues update failed', 'alert')
+      dataType: 'json'
 
   @sortMergeRequests: (data) ->
-    sort_mr_url = location.href + "/sort_merge_requests"
+    sort_mr_url = location.href + '/sort_merge_requests'
 
     $.ajax
-      type: "PUT"
+      type: 'PUT'
       url: sort_mr_url
       data: data
       success: (data) ->
         if data.saved != true
-          new Flash("MR update failed", 'alert')
-      dataType: "json"
+          new Flash('MR update failed', 'alert')
+      dataType: 'json'
 
   @updateMergeRequest: (li, merge_request_url, data) ->
     $.ajax
-      type: "PUT"
+      type: 'PUT'
       url: merge_request_url
       data: data
       success: (data) ->
@@ -58,13 +58,13 @@ class @Milestone
             $(li).find('.assignee-icon').html('')
           $(li).effect 'highlight'
         else
-          new Flash("Issue update failed", 'alert')
-      dataType: "json"
+          new Flash('Issue update failed', 'alert')
+      dataType: 'json'
 
   constructor: ->
     oldMouseStart = $.ui.sortable.prototype._mouseStart
     $.ui.sortable.prototype._mouseStart = (event, overrideHandle, noActivation) ->
-      this._trigger "beforeStart", event, this._uiHash()
+      this._trigger 'beforeStart', event, this._uiHash()
       oldMouseStart.apply this, [event, overrideHandle, noActivation]
 
     @bindIssuesSorting()
@@ -72,16 +72,16 @@ class @Milestone
     @bindTabsSwitching()
 
   bindIssuesSorting: ->
-    $("#issues-list-unassigned, #issues-list-ongoing, #issues-list-closed").sortable(
-      connectWith: ".issues-sortable-list",
+    $('#issues-list-unassigned, #issues-list-ongoing, #issues-list-closed').sortable(
+      connectWith: '.issues-sortable-list',
       dropOnEmpty: true,
-      items: "li:not(.ui-sort-disabled)",
+      items: 'li:not(.ui-sort-disabled)',
       beforeStart: (event, ui) ->
-        $(".issues-sortable-list").css "min-height", ui.item.outerHeight()
+        $('.issues-sortable-list').css 'min-height', ui.item.outerHeight()
       stop: (event, ui) ->
-        $(".issues-sortable-list").css "min-height", "0px"
+        $('.issues-sortable-list').css 'min-height', '0px'
       update: (event, ui) ->
-        data = $(this).sortable("serialize")
+        data = $(this).sortable('serialize')
         Milestone.sortIssues(data)
 
       receive: (event, ui) ->
@@ -91,14 +91,14 @@ class @Milestone
 
         data = switch new_state
           when 'ongoing'
-            "issue[assignee_id]=" + gon.current_user_id
+            'issue[assignee_id]=' + gon.current_user_id
           when 'unassigned'
-            "issue[assignee_id]="
+            'issue[assignee_id]='
           when 'closed'
-            "issue[state_event]=close"
+            'issue[state_event]=close'
 
-        if $(ui.sender).data('state') == "closed"
-          data += "&issue[state_event]=reopen"
+        if $(ui.sender).data('state') == 'closed'
+          data += '&issue[state_event]=reopen'
 
         Milestone.updateIssue(ui.item, issue_url, data)
 
@@ -114,16 +114,16 @@ class @Milestone
       $(currentTabClass).show()
 
   bindMergeRequestSorting: ->
-    $("#merge_requests-list-unassigned, #merge_requests-list-ongoing, #merge_requests-list-closed").sortable(
-      connectWith: ".merge_requests-sortable-list",
+    $('#merge_requests-list-unassigned, #merge_requests-list-ongoing, #merge_requests-list-closed').sortable(
+      connectWith: '.merge_requests-sortable-list',
       dropOnEmpty: true,
-      items: "li:not(.ui-sort-disabled)",
+      items: 'li:not(.ui-sort-disabled)',
       beforeStart: (event, ui) ->
-        $(".merge_requests-sortable-list").css "min-height", ui.item.outerHeight()
+        $('.merge_requests-sortable-list').css 'min-height', ui.item.outerHeight()
       stop: (event, ui) ->
-        $(".merge_requests-sortable-list").css "min-height", "0px"
+        $('.merge_requests-sortable-list').css 'min-height', '0px'
       update: (event, ui) ->
-        data = $(this).sortable("serialize")
+        data = $(this).sortable('serialize')
         Milestone.sortMergeRequests(data)
 
       receive: (event, ui) ->
@@ -133,14 +133,14 @@ class @Milestone
 
         data = switch new_state
           when 'ongoing'
-            "merge_request[assignee_id]=" + gon.current_user_id
+            'merge_request[assignee_id]=' + gon.current_user_id
           when 'unassigned'
-            "merge_request[assignee_id]="
+            'merge_request[assignee_id]='
           when 'closed'
-            "merge_request[state_event]=close"
+            'merge_request[state_event]=close'
 
-        if $(ui.sender).data('state') == "closed"
-          data += "&merge_request[state_event]=reopen"
+        if $(ui.sender).data('state') == 'closed'
+          data += '&merge_request[state_event]=reopen'
 
         Milestone.updateMergeRequest(ui.item, merge_request_url, data)
 

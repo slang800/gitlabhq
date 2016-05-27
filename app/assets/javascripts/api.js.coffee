@@ -1,12 +1,12 @@
 @Api =
-  groupsPath: "/api/:version/groups.json"
-  groupPath: "/api/:version/groups/:id.json"
-  namespacesPath: "/api/:version/namespaces.json"
-  groupProjectsPath: "/api/:version/groups/:id/projects.json"
-  projectsPath: "/api/:version/projects.json"
-  labelsPath: "/api/:version/projects/:id/labels"
-  licensePath: "/api/:version/licenses/:key"
-  gitignorePath: "/api/:version/gitignores/:key"
+  groupsPath: '/api/:version/groups.json'
+  groupPath: '/api/:version/groups/:id.json'
+  namespacesPath: '/api/:version/namespaces.json'
+  groupProjectsPath: '/api/:version/groups/:id/projects.json'
+  projectsPath: '/api/:version/projects.json'
+  labelsPath: '/api/:version/projects/:id/labels'
+  licensePath: '/api/:version/licenses/:key'
+  gitignorePath: '/api/:version/gitignores/:key'
 
   group: (group_id, callback) ->
     url = Api.buildUrl(Api.groupPath)
@@ -16,7 +16,7 @@
       url: url
       data:
         private_token: gon.api_token
-      dataType: "json"
+      dataType: 'json'
     ).done (group) ->
       callback(group)
 
@@ -31,7 +31,7 @@
         private_token: gon.api_token
         search: query
         per_page: 20
-      dataType: "json"
+      dataType: 'json'
     ).done (groups) ->
       callback(groups)
 
@@ -45,7 +45,7 @@
         private_token: gon.api_token
         search: query
         per_page: 20
-      dataType: "json"
+      dataType: 'json'
     ).done (namespaces) ->
       callback(namespaces)
 
@@ -60,7 +60,7 @@
         search: query
         order_by: order
         per_page: 20
-      dataType: "json"
+      dataType: 'json'
     ).done (projects) ->
       callback(projects)
 
@@ -71,9 +71,9 @@
     data.private_token = gon.api_token
     $.ajax(
       url: url
-      type: "POST"
+      type: 'POST'
       data: data
-      dataType: "json"
+      dataType: 'json'
     ).done (label) ->
       callback(label)
     .error (message) ->
@@ -90,7 +90,7 @@
         private_token: gon.api_token
         search: query
         per_page: 20
-      dataType: "json"
+      dataType: 'json'
     ).done (projects) ->
       callback(projects)
 

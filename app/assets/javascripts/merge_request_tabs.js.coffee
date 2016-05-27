@@ -77,7 +77,7 @@ class @MergeRequestTabs
         @shrinkView()
 
       navBarHeight = $('.navbar-gitlab').outerHeight()
-      $.scrollTo(".merge-request-details .merge-request-tabs", offset: -navBarHeight)
+      $.scrollTo('.merge-request-details .merge-request-tabs', offset: -navBarHeight)
     else if action == 'builds'
       @loadBuilds($target.attr('href'))
       @expandView()
@@ -146,10 +146,10 @@ class @MergeRequestTabs
     @_get
       url: "#{source}.json"
       success: (data) =>
-        document.querySelector("div#commits").innerHTML = data.html
+        document.querySelector('div#commits').innerHTML = data.html
         gl.utils.localTimeAgo($('.js-timeago', 'div#commits'))
         @commitsLoaded = true
-        @scrollToElement("#commits")
+        @scrollToElement('#commits')
 
   loadDiff: (source) ->
     return if @diffsLoaded
@@ -162,7 +162,7 @@ class @MergeRequestTabs
         $('#diffs .js-syntax-highlight').syntaxHighlight()
         @expandViewContainer() if @diffViewType() is 'parallel'
         @diffsLoaded = true
-        @scrollToElement("#diffs")
+        @scrollToElement('#diffs')
         @highlighSelectedLine()
 
         $(document)
@@ -171,7 +171,7 @@ class @MergeRequestTabs
             e.preventDefault()
             window.location.hash = $(e.currentTarget).attr 'href'
             @highlighSelectedLine()
-            @scrollToElement("#diffs")
+            @scrollToElement('#diffs')
 
   highlighSelectedLine: ->
     $('.hll').removeClass 'hll'
@@ -197,10 +197,10 @@ class @MergeRequestTabs
     @_get
       url: "#{source}.json"
       success: (data) =>
-        document.querySelector("div#builds").innerHTML = data.html
+        document.querySelector('div#builds').innerHTML = data.html
         gl.utils.localTimeAgo($('.js-timeago', 'div#builds'))
         @buildsLoaded = true
-        @scrollToElement("#builds")
+        @scrollToElement('#builds')
 
   # Show or hide the loading spinner
   #

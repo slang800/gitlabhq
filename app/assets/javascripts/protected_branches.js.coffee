@@ -1,14 +1,14 @@
 $ ->
-  $(".protected-branches-list :checkbox").change (e) ->
-    name = $(this).attr("name")
-    if name == "developers_can_push"
+  $('.protected-branches-list :checkbox').change (e) ->
+    name = $(this).attr('name')
+    if name == 'developers_can_push'
       id = $(this).val()
-      checked = $(this).is(":checked")
-      url = $(this).data("url")
+      checked = $(this).is(':checked')
+      url = $(this).data('url')
       $.ajax
-        type: "PUT"
+        type: 'PUT'
         url: url
-        dataType: "json"
+        dataType: 'json'
         data:
           id: id
           developers_can_push: checked
@@ -18,4 +18,4 @@ $ ->
           row.closest('tr').effect('highlight')
 
         error: ->
-          new Flash("Failed to update branch!", "alert")
+          new Flash("Failed to update branch!", 'alert')

@@ -69,7 +69,7 @@ issuable_created = false
 
         Issuable.toggleLabelFilters()
 
-      dataType: "json"
+      dataType: 'json'
 
   reload: ->
     if Issuable.created

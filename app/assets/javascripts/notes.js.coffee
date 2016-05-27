@@ -15,7 +15,7 @@ class @Notes
     @last_fetched_at = last_fetched_at
     @view = view
     @noteable_url = document.URL
-    @notesCountBadge ||= $(".issuable-details").find(".notes-tab .badge")
+    @notesCountBadge ||= $('.issuable-details').find('.notes-tab .badge')
     @basePollingInterval = 15000
     @maxPollingSteps = 4
 
@@ -27,75 +27,75 @@ class @Notes
 
   addBinding: ->
     # add note to UI after creation
-    $(document).on "ajax:success", ".js-main-target-form", @addNote
-    $(document).on "ajax:success", ".js-discussion-note-form", @addDiscussionNote
+    $(document).on 'ajax:success', '.js-main-target-form', @addNote
+    $(document).on 'ajax:success', '.js-discussion-note-form', @addDiscussionNote
 
     # catch note ajax errors
-    $(document).on "ajax:error", ".js-main-target-form", @addNoteError
+    $(document).on 'ajax:error', '.js-main-target-form', @addNoteError
 
     # change note in UI after update
-    $(document).on "ajax:success", "form.edit-note", @updateNote
+    $(document).on 'ajax:success', 'form.edit-note', @updateNote
 
     # Edit note link
-    $(document).on "click", ".js-note-edit", @showEditForm
-    $(document).on "click", ".note-edit-cancel", @cancelEdit
+    $(document).on 'click', '.js-note-edit', @showEditForm
+    $(document).on 'click', '.note-edit-cancel', @cancelEdit
 
     # Reopen and close actions for Issue/MR combined with note form submit
-    $(document).on "click", ".js-comment-button", @updateCloseButton
-    $(document).on "keyup input", ".js-note-text", @updateTargetButtons
+    $(document).on 'click', '.js-comment-button', @updateCloseButton
+    $(document).on 'keyup input', '.js-note-text', @updateTargetButtons
 
     # remove a note (in general)
-    $(document).on "click", ".js-note-delete", @removeNote
+    $(document).on 'click', '.js-note-delete', @removeNote
 
     # delete note attachment
-    $(document).on "click", ".js-note-attachment-delete", @removeAttachment
+    $(document).on 'click', '.js-note-attachment-delete', @removeAttachment
 
     # reset main target form after submit
-    $(document).on "ajax:complete", ".js-main-target-form", @reenableTargetFormSubmitButton
-    $(document).on "ajax:success", ".js-main-target-form", @resetMainTargetForm
+    $(document).on 'ajax:complete', '.js-main-target-form', @reenableTargetFormSubmitButton
+    $(document).on 'ajax:success', '.js-main-target-form', @resetMainTargetForm
 
     # reset main target form when clicking discard
-    $(document).on "click", ".js-note-discard", @resetMainTargetForm
+    $(document).on 'click', '.js-note-discard', @resetMainTargetForm
 
     # update the file name when an attachment is selected
-    $(document).on "change", ".js-note-attachment-input", @updateFormAttachment
+    $(document).on 'change', '.js-note-attachment-input', @updateFormAttachment
 
     # reply to diff/discussion notes
-    $(document).on "click", ".js-discussion-reply-button", @replyToDiscussionNote
+    $(document).on 'click', '.js-discussion-reply-button', @replyToDiscussionNote
 
     # add diff note
-    $(document).on "click", ".js-add-diff-note-button", @addDiffNote
+    $(document).on 'click', '.js-add-diff-note-button', @addDiffNote
 
     # hide diff note form
-    $(document).on "click", ".js-close-discussion-note-form", @cancelDiscussionForm
+    $(document).on 'click', '.js-close-discussion-note-form', @cancelDiscussionForm
 
     # fetch notes when tab becomes visible
-    $(document).on "visibilitychange", @visibilityChange
+    $(document).on 'visibilitychange', @visibilityChange
 
     # when issue status changes, we need to refresh data
-    $(document).on "issuable:change", @refresh
+    $(document).on 'issuable:change', @refresh
 
     # when a key is clicked on the notes
-    $(document).on "keydown", ".js-note-text", @keydownNoteText
+    $(document).on 'keydown', '.js-note-text', @keydownNoteText
 
   cleanBinding: ->
-    $(document).off "ajax:success", ".js-main-target-form"
-    $(document).off "ajax:success", ".js-discussion-note-form"
-    $(document).off "ajax:success", "form.edit-note"
-    $(document).off "click", ".js-note-edit"
-    $(document).off "click", ".note-edit-cancel"
-    $(document).off "click", ".js-note-delete"
-    $(document).off "click", ".js-note-attachment-delete"
-    $(document).off "ajax:complete", ".js-main-target-form"
-    $(document).off "ajax:success", ".js-main-target-form"
-    $(document).off "click", ".js-discussion-reply-button"
-    $(document).off "click", ".js-add-diff-note-button"
-    $(document).off "visibilitychange"
-    $(document).off "keyup", ".js-note-text"
-    $(document).off "click", ".js-note-target-reopen"
-    $(document).off "click", ".js-note-target-close"
-    $(document).off "click", ".js-note-discard"
-    $(document).off "keydown", ".js-note-text"
+    $(document).off 'ajax:success', '.js-main-target-form'
+    $(document).off 'ajax:success', '.js-discussion-note-form'
+    $(document).off 'ajax:success', 'form.edit-note'
+    $(document).off 'click', '.js-note-edit'
+    $(document).off 'click', '.note-edit-cancel'
+    $(document).off 'click', '.js-note-delete'
+    $(document).off 'click', '.js-note-attachment-delete'
+    $(document).off 'ajax:complete', '.js-main-target-form'
+    $(document).off 'ajax:success', '.js-main-target-form'
+    $(document).off 'click', '.js-discussion-reply-button'
+    $(document).off 'click', '.js-add-diff-note-button'
+    $(document).off 'visibilitychange'
+    $(document).off 'keyup', '.js-note-text'
+    $(document).off 'click', '.js-note-target-reopen'
+    $(document).off 'click', '.js-note-target-close'
+    $(document).off 'click', '.js-note-discard'
+    $(document).off 'keydown', '.js-note-text'
 
     $('.note .js-task-list-container').taskList('disable')
     $(document).off 'tasklist:changed', '.note .js-task-list-container'
@@ -123,8 +123,8 @@ class @Notes
   getContent: ->
     $.ajax
       url: @notes_url
-      data: "last_fetched_at=" + @last_fetched_at
-      dataType: "json"
+      data: 'last_fetched_at=' + @last_fetched_at
+      dataType: 'json'
       success: (data) =>
         notes = data.notes
         @last_fetched_at = data.last_fetched_at
@@ -207,7 +207,7 @@ class @Notes
 
     @note_ids.push(note.id)
     form = $("#new-discussion-note-form-#{note.discussion_id}")
-    row = form.closest("tr")
+    row = form.closest('tr')
     note_html = $(note.html)
     note_html.syntaxHighlight()
 
@@ -218,7 +218,7 @@ class @Notes
       row.after note.discussion_html
 
       # remove the note (will be added again below)
-      row.next().find(".note").remove()
+      row.next().find('.note').remove()
 
       # Before that, the container didn't exist
       discussionContainer = $(".notes[data-discussion-id='" + note.discussion_id + "']")
@@ -247,23 +247,23 @@ class @Notes
   Resets buttons.
   ###
   resetMainTargetForm: (e) =>
-    form = $(".js-main-target-form")
+    form = $('.js-main-target-form')
 
     # remove validation errors
-    form.find(".js-errors").remove()
+    form.find('.js-errors').remove()
 
     # reset text and preview
-    form.find(".js-md-write-button").click()
-    form.find(".js-note-text").val("").trigger "input"
+    form.find('.js-md-write-button').click()
+    form.find('.js-note-text').val('').trigger 'input'
 
-    form.find(".js-note-text").data("autosave").reset()
+    form.find('.js-note-text').data('autosave').reset()
 
     @updateTargetButtons(e)
 
   reenableTargetFormSubmitButton: ->
-    form = $(".js-main-target-form")
+    form = $('.js-main-target-form')
 
-    form.find(".js-note-text").trigger "input"
+    form.find('.js-note-text').trigger 'input'
 
   ###
   Shows the main form and does some setup on it.
@@ -272,7 +272,7 @@ class @Notes
   ###
   setupMainTargetNoteForm: ->
     # find the form
-    form = $(".js-new-note-form")
+    form = $('.js-new-note-form')
 
     # Set a global clone of the form for later cloning
     @formClone = form.clone()
@@ -281,11 +281,11 @@ class @Notes
     @setupNoteForm(form)
 
     # fix classes
-    form.removeClass "js-new-note-form"
-    form.addClass "js-main-target-form"
+    form.removeClass 'js-new-note-form'
+    form.addClass 'js-main-target-form'
 
-    form.find("#note_line_code").remove()
-    form.find("#note_type").remove()
+    form.find('#note_line_code').remove()
+    form.find('#note_type').remove()
 
   ###
   General note form setup.
@@ -298,14 +298,14 @@ class @Notes
   setupNoteForm: (form) ->
     new GLForm form
 
-    textarea = form.find(".js-note-text")
+    textarea = form.find('.js-note-text')
 
     new Autosave textarea, [
-      "Note"
-      form.find("#note_commit_id").val()
-      form.find("#note_line_code").val()
-      form.find("#note_noteable_type").val()
-      form.find("#note_noteable_id").val()
+      'Note'
+      form.find('#note_commit_id').val()
+      form.find('#note_line_code').val()
+      form.find('#note_noteable_type').val()
+      form.find('#note_noteable_id').val()
     ]
 
   ###
@@ -358,14 +358,14 @@ class @Notes
   ###
   showEditForm: (e, scrollTo, myLastNote) ->
     e.preventDefault()
-    note = $(this).closest(".note")
-    note.addClass "is-editting"
-    form = note.find(".note-edit-form")
+    note = $(this).closest('.note')
+    note.addClass 'is-editting'
+    form = note.find('.note-edit-form')
 
     form.addClass('current-note-edit-form')
 
     # Show the attachment delete link
-    note.find(".js-note-attachment-delete").show()
+    note.find('.js-note-attachment-delete').show()
 
     done = ($noteText) ->
       # Neat little trick to put the cursor at the end
@@ -380,7 +380,7 @@ class @Notes
       $('html, body').animate({
         scrollTop: myLastNote.offset().top - 150
       }, 500, ->
-        $noteText = form.find(".js-note-text")
+        $noteText = form.find('.js-note-text')
         $noteText.focus()
         done($noteText)
       );
@@ -396,10 +396,10 @@ class @Notes
   ###
   cancelEdit: (e) ->
     e.preventDefault()
-    note = $(this).closest(".note")
-    note.removeClass "is-editting"
-    note.find(".current-note-edit-form")
-      .removeClass("current-note-edit-form")
+    note = $(this).closest('.note')
+    note.removeClass 'is-editting'
+    note.find('.current-note-edit-form')
+      .removeClass('current-note-edit-form')
 
   ###
   Called in response to deleting a note of any kind.
@@ -409,24 +409,24 @@ class @Notes
   ###
   removeNote: (e) =>
     noteId = $(e.currentTarget)
-               .closest(".note")
-               .attr("id")
+               .closest('.note')
+               .attr('id')
 
     # A same note appears in the "Discussion" and in the "Changes" tab, we have
     # to remove all. Using $(".note[id='noteId']") ensure we get all the notes,
-    # where $("#noteId") would return only one.
+    # where $('#noteId') would return only one.
     $(".note[id='#{noteId}']").each (i, el) =>
       note  = $(el)
-      notes = note.closest(".notes")
+      notes = note.closest('.notes')
 
       # check if this is the last note for this line
-      if notes.find(".note").length is 1
+      if notes.find('.note').length is 1
 
         # "Discussions" tab
-        notes.closest(".timeline-entry").remove()
+        notes.closest('.timeline-entry').remove()
 
         # "Changes" tab / commit view
-        notes.closest("tr").remove()
+        notes.closest('tr').remove()
 
       note.remove()
 
@@ -440,11 +440,11 @@ class @Notes
   Resets the note editing form
   ###
   removeAttachment: ->
-    note = $(this).closest(".note")
-    note.find(".note-attachment").remove()
-    note.find(".note-body > .note-text").show()
-    note.find(".note-header").show()
-    note.find(".current-note-edit-form").remove()
+    note = $(this).closest('.note')
+    note.find('.note-attachment').remove()
+    note.find('.note-body > .note-text').show()
+    note.find('.note-header').show()
+    note.find('.current-note-edit-form').remove()
 
   ###
   Called when clicking on the "reply" button for a diff line.
@@ -453,7 +453,7 @@ class @Notes
   ###
   replyToDiscussionNote: (e) =>
     form = @formClone.clone()
-    replyLink = $(e.target).closest(".js-discussion-reply-button")
+    replyLink = $(e.target).closest('.js-discussion-reply-button')
     replyLink.hide()
 
     # insert the form after the button
@@ -472,23 +472,23 @@ class @Notes
   ###
   setupDiscussionNoteForm: (dataHolder, form) =>
     # setup note target
-    form.attr 'id', "new-discussion-note-form-#{dataHolder.data("discussionId")}"
-    form.find("#note_type").val dataHolder.data("noteType")
-    form.find("#line_type").val dataHolder.data("lineType")
-    form.find("#note_commit_id").val dataHolder.data("commitId")
-    form.find("#note_line_code").val dataHolder.data("lineCode")
-    form.find("#note_noteable_type").val dataHolder.data("noteableType")
-    form.find("#note_noteable_id").val dataHolder.data("noteableId")
+    form.attr 'id', "new-discussion-note-form-#{dataHolder.data('discussionId')}"
+    form.find('#note_type').val dataHolder.data('noteType')
+    form.find('#line_type').val dataHolder.data('lineType')
+    form.find('#note_commit_id').val dataHolder.data('commitId')
+    form.find('#note_line_code').val dataHolder.data('lineCode')
+    form.find('#note_noteable_type').val dataHolder.data('noteableType')
+    form.find('#note_noteable_id').val dataHolder.data('noteableId')
     form.find('.js-note-discard')
         .show()
         .removeClass('js-note-discard')
         .addClass('js-close-discussion-note-form')
         .text(form.find('.js-close-discussion-note-form').data('cancel-text'))
     @setupNoteForm form
-    form.find(".js-note-text").focus()
+    form.find('.js-note-text').focus()
     form
       .removeClass('js-main-target-form')
-      .addClass("discussion-form js-discussion-note-form")
+      .addClass('discussion-form js-discussion-note-form')
 
   ###
   Called when clicking on the "add a comment" button on the side of a diff line.
@@ -499,29 +499,29 @@ class @Notes
   addDiffNote: (e) =>
     e.preventDefault()
     $link = $(e.currentTarget)
-    row = $link.closest("tr")
+    row = $link.closest('tr')
     nextRow = row.next()
-    hasNotes = nextRow.is(".notes_holder")
+    hasNotes = nextRow.is('.notes_holder')
     addForm = false
-    targetContent = ".notes_content"
-    rowCssToAdd = "<tr class=\"notes_holder js-temp-notes-holder\"><td class=\"notes_line\" colspan=\"2\"></td><td class=\"notes_content\"></td></tr>"
+    targetContent = '.notes_content'
+    rowCssToAdd = '<tr class="notes_holder js-temp-notes-holder"><td class="notes_line" colspan="2"></td><td class="notes_content"></td></tr>'
 
     # In parallel view, look inside the correct left/right pane
     if @isParallelView()
-      lineType = $link.data("lineType")
-      targetContent += "." + lineType
-      rowCssToAdd = "<tr class=\"notes_holder js-temp-notes-holder\"><td class=\"notes_line\"></td><td class=\"notes_content parallel old\"></td><td class=\"notes_line\"></td><td class=\"notes_content parallel new\"></td></tr>"
+      lineType = $link.data('lineType')
+      targetContent += '.' + lineType
+      rowCssToAdd = '<tr class="notes_holder js-temp-notes-holder"><td class="notes_line"></td><td class="notes_content parallel old"></td><td class="notes_line"></td><td class="notes_content parallel new"></td></tr>'
 
     if hasNotes
       notesContent = nextRow.find(targetContent)
       if notesContent.length
-        replyButton = notesContent.find(".js-discussion-reply-button:visible")
+        replyButton = notesContent.find('.js-discussion-reply-button:visible')
         if replyButton.length
           e.target = replyButton[0]
           $.proxy(@replyToDiscussionNote, replyButton[0], e).call()
         else
           # In parallel view, the form may not be present in one of the panes
-          noteForm = notesContent.find(".js-discussion-note-form")
+          noteForm = notesContent.find('.js-discussion-note-form')
           if noteForm.length == 0
             addForm = true
     else
@@ -543,16 +543,16 @@ class @Notes
   Removes the form and if necessary it's temporary row.
   ###
   removeDiscussionNoteForm: (form)->
-    row = form.closest("tr")
+    row = form.closest('tr')
 
     glForm = form.data 'gl-form'
     glForm.destroy()
 
-    form.find(".js-note-text").data("autosave").reset()
+    form.find('.js-note-text').data('autosave').reset()
 
     # show the reply button (will only work for replies)
-    form.prev(".js-discussion-reply-button").show()
-    if row.is(".js-temp-notes-holder")
+    form.prev('.js-discussion-reply-button').show()
+    if row.is('.js-temp-notes-holder')
       # remove temporary row for diff lines
       row.remove()
     else
@@ -561,7 +561,7 @@ class @Notes
 
   cancelDiscussionForm: (e) =>
     e.preventDefault()
-    form = $(e.target).closest(".js-discussion-note-form")
+    form = $(e.target).closest('.js-discussion-note-form')
     @removeDiscussionNoteForm(form)
 
   ###
@@ -570,11 +570,11 @@ class @Notes
   Updates the file name for the selected attachment.
   ###
   updateFormAttachment: ->
-    form = $(this).closest("form")
+    form = $(this).closest('form')
 
     # get only the basename
-    filename = $(this).val().replace(/^.*[\\\/]/, "")
-    form.find(".js-attachment-filename").text filename
+    filename = $(this).val().replace(/^.*[\\\/]/, '')
+    form.find('.js-attachment-filename').text filename
 
   ###
   Called when the tab visibility changes

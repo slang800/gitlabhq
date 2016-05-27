@@ -37,8 +37,8 @@ class @ProjectSelect
       @includeGroups = $(select).data('include-groups')
       @orderBy = $(select).data('order-by') || 'id'
 
-      placeholder = "Search for project"
-      placeholder += " or group" if @includeGroups
+      placeholder = 'Search for project'
+      placeholder += ' or group' if @includeGroups
 
       $(select).select2
         placeholder: placeholder
@@ -69,4 +69,4 @@ class @ProjectSelect
         text: (project) ->
           project.name_with_namespace || project.name
 
-        dropdownCssClass: "ajax-project-dropdown"
+        dropdownCssClass: 'ajax-project-dropdown'

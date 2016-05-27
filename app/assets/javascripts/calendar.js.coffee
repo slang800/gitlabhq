@@ -178,7 +178,7 @@ class @Calendar
   clickDay: (stamp) ->
     if @currentSelectedDate isnt stamp.date
       @currentSelectedDate = stamp.date
-      formatted_date = @currentSelectedDate.getFullYear() + "-" + (@currentSelectedDate.getMonth()+1) + "-" + @currentSelectedDate.getDate()
+      formatted_date = @currentSelectedDate.getFullYear() + '-' + (@currentSelectedDate.getMonth()+1) + '-' + @currentSelectedDate.getDate()
 
       $.ajax
         url: @calendar_activities_path

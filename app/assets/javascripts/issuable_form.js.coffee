@@ -9,14 +9,14 @@ class @IssuableForm
 
     @titleField       = @form.find("input[name*='[title]']")
     @descriptionField = @form.find("textarea[name*='[description]']")
-    @issueMoveField   = @form.find("#move_to_project_id")
+    @issueMoveField   = @form.find('#move_to_project_id')
 
     return unless @titleField.length && @descriptionField.length
 
     @initAutosave()
 
-    @form.on "submit", @handleSubmit
-    @form.on "click", ".btn-cancel", @resetAutosave
+    @form.on 'submit', @handleSubmit
+    @form.on 'click', '.btn-cancel', @resetAutosave
 
     @initWip()
     @initMoveDropdown()
@@ -34,13 +34,13 @@ class @IssuableForm
     new Autosave @titleField, [
       document.location.pathname,
       document.location.search,
-      "title"
+      'title'
     ]
 
     new Autosave @descriptionField, [
       document.location.pathname,
       document.location.search,
-      "description"
+      'description'
     ]
 
   handleSubmit: =>
@@ -50,17 +50,17 @@ class @IssuableForm
     @resetAutosave()
 
   resetAutosave: =>
-    @titleField.data("autosave").reset()
-    @descriptionField.data("autosave").reset()
+    @titleField.data('autosave').reset()
+    @descriptionField.data('autosave').reset()
 
   initWip: ->
-    @$wipExplanation = @form.find(".js-wip-explanation")
-    @$noWipExplanation = @form.find(".js-no-wip-explanation")
+    @$wipExplanation = @form.find('.js-wip-explanation')
+    @$noWipExplanation = @form.find('.js-no-wip-explanation')
     return unless @$wipExplanation.length and @$noWipExplanation.length
 
-    @form.on "click", ".js-toggle-wip", @toggleWip
+    @form.on 'click', '.js-toggle-wip', @toggleWip
 
-    @titleField.on "keyup blur", @renderWipExplanation
+    @titleField.on 'keyup blur', @renderWipExplanation
 
     @renderWipExplanation()
 
@@ -86,7 +86,7 @@ class @IssuableForm
     @renderWipExplanation()
 
   removeWip: ->
-    @titleField.val @titleField.val().replace(@wipRegex, "")
+    @titleField.val @titleField.val().replace(@wipRegex, '')
 
   addWip: ->
     @titleField.val "WIP: #{@titleField.val()}"

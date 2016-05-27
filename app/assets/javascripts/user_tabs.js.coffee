@@ -138,7 +138,7 @@ class @UserTabs
     # Remove possible actions from URL
     regExp = new RegExp('\/(' + @actions.join('|') + ')(\.html)?\/?$')
     new_state = @_location.pathname
-    new_state = new_state.replace(/\/+$/, "") # remove trailing slashes
+    new_state = new_state.replace(/\/+$/, '') # remove trailing slashes
     new_state = new_state.replace(regExp, '')
 
     # Append the new action if we're on a tab other than 'activity'

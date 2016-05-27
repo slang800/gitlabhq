@@ -10,7 +10,7 @@ class @Project
       # Add the active class for the clicked button
       $(@).toggleClass('active')
 
-      url = $("#project_clone").val()
+      url = $('#project_clone').val()
 
       # Update the input field
       $('#project_clone').val(url)
@@ -46,9 +46,9 @@ class @Project
 
     $('#notification-form').on 'ajax:success', (e, data) ->
       if data.saved
-        new Flash("Notification settings saved", "notice")
+        new Flash('Notification settings saved', 'notice')
       else
-        new Flash("Failed to save new settings", "alert")
+        new Flash('Failed to save new settings', 'alert')
 
 
     @projectSelectDropdown()

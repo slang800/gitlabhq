@@ -9,4 +9,4 @@ window.unbindEvents = ->
   $(document).unbind('scroll')
   $(document).off('scroll')
 
-document.addEventListener("page:fetch", unbindEvents)
+document.addEventListener('page:fetch', unbindEvents)

@@ -4,7 +4,7 @@
 class @ContributorsStatGraph
   init: (log) ->
     @parsed_log = ContributorsStatGraphUtil.parse_log(log)
-    @set_current_field("commits")
+    @set_current_field('commits')
     total_commits = ContributorsStatGraphUtil.get_total_data(@parsed_log, @field)
     author_commits = ContributorsStatGraphUtil.get_author_data(@parsed_log, @field)
     @add_master_graph(total_commits)
@@ -18,7 +18,7 @@ class @ContributorsStatGraph
     limited_author_data = author_data.slice(0, 100)
     _.each(limited_author_data, (d) =>
       author_header = @create_author_header(d)
-      $(".contributors-list").append(author_header)
+      $('.contributors-list').append(author_header)
       @authors[d.author_name] = author_graph = new ContributorsAuthorGraph(d.dates)
       author_graph.draw()
     )
@@ -26,7 +26,7 @@ class @ContributorsStatGraph
     commits = $('<span/>', {
       class: 'graph-author-commits-count'
     })
-    commits.text(author.commits + " commits")
+    commits.text(author.commits + ' commits')
     $('<span/>').append(commits)
 
   create_author_header: (author) ->
@@ -50,12 +50,12 @@ class @ContributorsStatGraph
     @master_graph.set_data(total_data)
     @master_graph.redraw()
   redraw_authors: ->
-    $("ol").html("")
+    $('ol').html('')
     x_domain = ContributorsGraph.prototype.x_domain
     author_commits = ContributorsStatGraphUtil.get_author_data(@parsed_log, @field, x_domain)
     _.each(author_commits, (d) =>
       @redraw_author_commit_info(d)
-      $(@authors[d.author_name].list_item).appendTo("ol")
+      $(@authors[d.author_name].list_item).appendTo('ol')
       @authors[d.author_name].set_data(d.dates)
       @authors[d.author_name].redraw()
     )
@@ -63,10 +63,10 @@ class @ContributorsStatGraph
     @field = field
   change_date_header: ->
     x_domain = ContributorsGraph.prototype.x_domain
-    print_date_format = d3.time.format("%B %e %Y")
-    print = print_date_format(x_domain[0]) + " - " + print_date_format(x_domain[1])
-    $("#date_header").text(print)
+    print_date_format = d3.time.format('%B %e %Y')
+    print = print_date_format(x_domain[0]) + ' - ' + print_date_format(x_domain[1])
+    $('#date_header').text(print)
   redraw_author_commit_info: (author) ->
     author_list_item = $(@authors[author.author_name].list_item)
     author_commit_info = @format_author_commit_info(author)
-    author_list_item.find("span").html(author_commit_info)
+    author_list_item.find('span').html(author_commit_info)

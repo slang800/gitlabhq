@@ -39,7 +39,7 @@ class @Sidebar
             .removeClass('right-sidebar-collapsed')
             .addClass('right-sidebar-expanded')
         if not triggered
-          $.cookie("collapsed_gutter",
+          $.cookie('collapsed_gutter',
             $('.right-sidebar')
               .hasClass('right-sidebar-collapsed'), { path: '/' })
 

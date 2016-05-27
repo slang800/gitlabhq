@@ -21,7 +21,7 @@ class @MergeRequest
     @disableTaskList()
     @initMRBtnListeners()
 
-    if $("a.btn-close").length
+    if $('a.btn-close').length
       @initTaskList()
 
   # Local jQuery finder
@@ -59,7 +59,7 @@ class @MergeRequest
 
 
   submitNoteForm: (form, $button) =>
-    noteText = form.find("textarea.js-note-text").val()
+    noteText = form.find('textarea.js-note-text').val()
     if noteText.trim().length > 0
       form.submit()
       $button.data('submitted',true)

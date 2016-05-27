@@ -41,10 +41,10 @@ class @ContributorsGraph
     @x = d3.time.scale().range([0, width]).clamp(true)
     @y = d3.scale.linear().range([height, 0]).nice()
   draw_x_axis: ->
-    @svg.append("g").attr("class", "x axis").attr("transform", "translate(0, #{@height})")
+    @svg.append('g').attr('class', 'x axis').attr('transform', "translate(0, #{@height})")
     .call(@x_axis)
   draw_y_axis: ->
-    @svg.append("g").attr("class", "y axis").call(@y_axis)
+    @svg.append('g').attr('class', 'y axis').call(@y_axis)
   set_data: (data) ->
     @data = data
 
@@ -67,38 +67,38 @@ class @ContributorsMasterGraph extends ContributorsGraph
   get_dates: (data) ->
     _.pluck(data, 'date')
   parse_dates: (data) ->
-    parseDate = d3.time.format("%Y-%m-%d").parse
+    parseDate = d3.time.format('%Y-%m-%d').parse
     data.forEach((d) ->
       d.date = parseDate(d.date)
     )
   create_scale: ->
     super @width, @height
   create_axes: ->
-    @x_axis = d3.svg.axis().scale(@x).orient("bottom")
-    @y_axis = d3.svg.axis().scale(@y).orient("left").ticks(5)
+    @x_axis = d3.svg.axis().scale(@x).orient('bottom')
+    @y_axis = d3.svg.axis().scale(@y).orient('left').ticks(5)
   create_svg: ->
-    @svg = d3.select("#contributors-master").append("svg")
-    .attr("width", @width + @MARGIN.left + @MARGIN.right)
-    .attr("height", @height + @MARGIN.top + @MARGIN.bottom)
-    .attr("class", "tint-box")
-    .append("g")
-    .attr("transform", "translate(" + @MARGIN.left + "," + @MARGIN.top + ")")
+    @svg = d3.select('#contributors-master').append('svg')
+    .attr('width', @width + @MARGIN.left + @MARGIN.right)
+    .attr('height', @height + @MARGIN.top + @MARGIN.bottom)
+    .attr('class', 'tint-box')
+    .append('g')
+    .attr('transform', 'translate(' + @MARGIN.left + ',' + @MARGIN.top + ')')
   create_area: (x, y) ->
     @area = d3.svg.area().x((d) ->
       x(d.date)
     ).y0(@height).y1((d) ->
       xa = d.commits = d.commits ? d.additions ? d.deletions
       y(xa)
-    ).interpolate("basis")
+    ).interpolate('basis')
   create_brush: ->
-    @brush = d3.svg.brush().x(@x).on("brushend", @update_content)
+    @brush = d3.svg.brush().x(@x).on('brushend', @update_content)
   draw_path: (data) ->
-    @svg.append("path").datum(data).attr("class", "area").attr("d", @area)
+    @svg.append('path').datum(data).attr('class', 'area').attr('d', @area)
   add_brush: ->
-    @svg.append("g").attr("class", "selection").call(@brush).selectAll("rect").attr("height", @height)
+    @svg.append('g').attr('class', 'selection').call(@brush).selectAll('rect').attr('height', @height)
   update_content: =>
     ContributorsGraph.set_x_domain(if @brush.empty() then @x_max_domain else @brush.extent())
-    $("#brush_change").trigger('change')
+    $('#brush_change').trigger('change')
   draw: ->
     @process_dates(@data)
     @create_scale()
@@ -117,9 +117,9 @@ class @ContributorsMasterGraph extends ContributorsGraph
     @process_dates(@data)
     ContributorsGraph.set_y_domain(@data)
     @set_y_domain()
-    @svg.select("path").datum(@data)
-    @svg.select("path").attr("d", @area)
-    @svg.select(".y.axis").call(@y_axis)
+    @svg.select('path').datum(@data)
+    @svg.select('path').attr('d', @area)
+    @svg.select('.y.axis').call(@y_axis)
 
 class @ContributorsAuthorGraph extends ContributorsGraph
   constructor: (@data) ->
@@ -135,25 +135,25 @@ class @ContributorsAuthorGraph extends ContributorsGraph
   create_scale: ->
     super @width, @height
   create_axes: ->
-    @x_axis = d3.svg.axis().scale(@x).orient("bottom").ticks(8)
-    @y_axis = d3.svg.axis().scale(@y).orient("left").ticks(5)
+    @x_axis = d3.svg.axis().scale(@x).orient('bottom').ticks(8)
+    @y_axis = d3.svg.axis().scale(@y).orient('left').ticks(5)
   create_area: (x, y) ->
     @area = d3.svg.area().x((d) ->
-      parseDate = d3.time.format("%Y-%m-%d").parse
+      parseDate = d3.time.format('%Y-%m-%d').parse
       x(parseDate(d))
     ).y0(@height).y1((d) =>
       if @data[d]? then y(@data[d]) else y(0)
-    ).interpolate("basis")
+    ).interpolate('basis')
   create_svg: ->
-    @list_item = d3.selectAll(".person")[0].pop()
-    @svg = d3.select(@list_item).append("svg")
-    .attr("width", @width + @MARGIN.left + @MARGIN.right)
-    .attr("height", @height + @MARGIN.top + @MARGIN.bottom)
-    .attr("class", "spark")
-    .append("g")
-    .attr("transform", "translate(" + @MARGIN.left + "," + @MARGIN.top + ")")
+    @list_item = d3.selectAll('.person')[0].pop()
+    @svg = d3.select(@list_item).append('svg')
+    .attr('width', @width + @MARGIN.left + @MARGIN.right)
+    .attr('height', @height + @MARGIN.top + @MARGIN.bottom)
+    .attr('class', 'spark')
+    .append('g')
+    .attr('transform', 'translate(' + @MARGIN.left + ',' + @MARGIN.top + ')')
   draw_path: (data) ->
-    @svg.append("path").datum(data).attr("class", "area-contributor").attr("d", @area)
+    @svg.append('path').datum(data).attr('class', 'area-contributor').attr('d', @area)
   draw: ->
     @create_scale()
     @create_axes()
@@ -165,7 +165,7 @@ class @ContributorsAuthorGraph extends ContributorsGraph
     @draw_y_axis()
   redraw: ->
     @set_domain()
-    @svg.select("path").datum(@dates)
-    @svg.select("path").attr("d", @area)
-    @svg.select(".x.axis").call(@x_axis)
-    @svg.select(".y.axis").call(@y_axis)
+    @svg.select('path').datum(@dates)
+    @svg.select('path').attr('d', @area)
+    @svg.select('.x.axis').call(@x_axis)
+    @svg.select('.y.axis').call(@y_axis)

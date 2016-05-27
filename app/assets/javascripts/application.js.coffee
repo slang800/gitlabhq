@@ -59,7 +59,7 @@ window.slugify = (text) ->
   text.replace(/[^-a-zA-Z0-9]+/g, '_').toLowerCase()
 
 window.ajaxGet = (url) ->
-  $.ajax({type: "GET", url: url, dataType: "script"})
+  $.ajax({type: 'GET', url: url, dataType: 'script'})
 
 window.split = (val) ->
   return val.split( /,\s*/ )
@@ -75,10 +75,10 @@ window.disableButtonIfEmptyField = (field_selector, button_selector) ->
   field = $(field_selector)
   closest_submit = field.closest('form').find(button_selector)
 
-  closest_submit.disable() if rstrip(field.val()) is ""
+  closest_submit.disable() if rstrip(field.val()) is ''
 
   field.on 'input', ->
-    if rstrip($(@).val()) is ""
+    if rstrip($(@).val()) is ''
       closest_submit.disable()
     else
       closest_submit.enable()
@@ -89,7 +89,7 @@ window.disableButtonIfAnyEmptyField = (form, form_selector, button_selector) ->
   updateButtons = ->
     filled = true
     form.find('input').filter(form_selector).each ->
-      filled = rstrip($(this).val()) != "" || !$(this).attr('required')
+      filled = rstrip($(this).val()) != '' || !$(this).attr('required')
 
     if filled
       closest_submit.enable()
@@ -108,9 +108,9 @@ window.unbindEvents = ->
 window.shiftWindow = ->
   scrollBy 0, -100
 
-document.addEventListener("page:fetch", unbindEvents)
+document.addEventListener('page:fetch', unbindEvents)
 
-window.addEventListener "hashchange", shiftWindow
+window.addEventListener 'hashchange', shiftWindow
 
 window.onload = ->
   # Scroll the window to avoid the topnav bar
@@ -121,10 +121,10 @@ window.onload = ->
 $ ->
   bootstrapBreakpoint = bp.getBreakpointSize()
 
-  $(".nicescroll").niceScroll(cursoropacitymax: '0.4', cursorcolor: '#FFF', cursorborder: "1px solid #FFF")
+  $('.nicescroll').niceScroll(cursoropacitymax: '0.4', cursorcolor: '#FFF', cursorborder: '1px solid #FFF')
 
   # Click a .js-select-on-focus field, select the contents
-  $(".js-select-on-focus").on "focusin", ->
+  $('.js-select-on-focus').on 'focusin', ->
     # Prevent a mouseup event from deselecting the input
     $(this).select().one 'mouseup', (e) ->
       e.preventDefault()
@@ -176,7 +176,7 @@ $ ->
   gl.utils.localTimeAgo($('abbr.timeago, .js-timeago'), true)
 
   # Flash
-  if (flash = $(".flash-container")).length > 0
+  if (flash = $('.flash-container')).length > 0
     flash.click -> $(@).fadeOut()
     flash.show()
 
@@ -203,20 +203,20 @@ $ ->
     $('.header-content .title').toggle()
     $('.header-content .navbar-collapse').toggle()
     $('.navbar-toggle').toggleClass('active')
-    $('.navbar-toggle i').toggleClass("fa-angle-right fa-angle-left")
+    $('.navbar-toggle i').toggleClass('fa-angle-right fa-angle-left')
 
   # Show/hide comments on diff
-  $("body").on "click", ".js-toggle-diff-comments", (e) ->
+  $('body').on 'click', '.js-toggle-diff-comments', (e) ->
     $(@).toggleClass('active')
-    $(@).closest(".diff-file").find(".notes_holder").toggle()
+    $(@).closest('.diff-file').find('.notes_holder').toggle()
     e.preventDefault()
 
-  $(document).off "click", '.js-confirm-danger'
-  $(document).on "click", '.js-confirm-danger', (e) ->
+  $(document).off 'click', '.js-confirm-danger'
+  $(document).on 'click', '.js-confirm-danger', (e) ->
     e.preventDefault()
     btn = $(e.target)
-    text = btn.data("confirm-danger-message")
-    form = btn.closest("form")
+    text = btn.data('confirm-danger-message')
+    form = btn.closest('form')
     new ConfirmDangerModal(form, text)
 
   $('input[type="search"]').each ->
@@ -253,12 +253,12 @@ $ ->
 
   checkInitialSidebarSize = ->
     bootstrapBreakpoint = bp.getBreakpointSize()
-    if bootstrapBreakpoint is "xs" or "sm"
+    if bootstrapBreakpoint is 'xs' or 'sm'
       $(document).trigger('breakpoint:change', [bootstrapBreakpoint])
 
   $(window)
-    .off "resize"
-    .on "resize", (e) ->
+    .off 'resize'
+    .on 'resize', (e) ->
       fitSidebarForSize()
 
   checkInitialSidebarSize()

@@ -13,10 +13,10 @@ $ ->
     message = $(@).val()
 
     if message == ''
-      $('.js-broadcast-message-preview').text("Your message here")
+      $('.js-broadcast-message-preview').text('Your message here')
     else
       $.ajax(
         url: previewPath
-        type: "POST"
+        type: 'POST'
         data: { broadcast_message: { message: message } }
       )
